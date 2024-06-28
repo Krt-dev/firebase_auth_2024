@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "184989581889",
+    "project_id": "kurt-demo-66781",
+    "storage_bucket": "kurt-demo-66781.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:184989581889:android:4becac28d13b6d07e6fcc0",
+        "android_client_info": {
+          "package_name": "com.example.state_change_demo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBqQoBk5tCQHI_OMMtassb4l8MC1AuLbbY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
