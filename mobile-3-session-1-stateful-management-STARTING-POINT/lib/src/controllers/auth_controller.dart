@@ -27,12 +27,20 @@ class AuthController with ChangeNotifier {
   }
 
   void handleUserChanges(User? user) {
+    print(user?.email);
+    print(user?.displayName);
     if (user == null) {
       state = AuthState.unauthenticated;
     } else {
       state = AuthState.authenticated;
     }
     notifyListeners();
+  }
+
+  register(String userName, String password) async {
+    UserCredential userCredential = await FirebaseAuth.instance
+        .createUserWithEmailAndPassword(email: userName, password: password);
+    // User? user  = userCredential.user;
   }
 
   login(String userName, String password) async {
@@ -44,6 +52,7 @@ class AuthController with ChangeNotifier {
   ///write code to log out the user and add it to the home page.
   logout() {
     //should clear session
+    return FirebaseAuth.instance.signOut();
   }
 
   ///must be called in main before runApp

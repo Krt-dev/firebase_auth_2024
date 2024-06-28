@@ -51,7 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
       bottomNavigationBar: SafeArea(
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-          height: 52,
+          height: 104,
           child: ElevatedButton(
             onPressed: () {
               onSubmit();
@@ -83,9 +83,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           errorText: 'Please fill out the username'),
                       MaxLengthValidator(32,
                           errorText: "Username cannot exceed 32 characters"),
-                      PatternValidator(r'^[a-zA-Z0-9 ]+$',
-                          errorText:
-                              'Username cannot contain special characters'),
+                      EmailValidator(
+                          errorText: "Please enter a valid email address")
                     ]).call,
                   ),
                 ),
