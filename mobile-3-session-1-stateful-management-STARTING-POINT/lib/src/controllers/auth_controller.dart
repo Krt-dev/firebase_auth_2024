@@ -17,9 +17,9 @@ class AuthController with ChangeNotifier {
 
   static AuthController get I => GetIt.instance<AuthController>();
 
-  late StreamSubscription<User?> currentAuthedUser;
-
   AuthState state = AuthState.unauthenticated;
+  // SimulatedAPI api = SimulatedAPI();
+  late StreamSubscription<User?> currentAuthedUser;
 
   listen() {
     currentAuthedUser =
@@ -27,8 +27,6 @@ class AuthController with ChangeNotifier {
   }
 
   void handleUserChanges(User? user) {
-    print(user?.email);
-    print(user?.displayName);
     if (user == null) {
       state = AuthState.unauthenticated;
     } else {
@@ -37,28 +35,24 @@ class AuthController with ChangeNotifier {
     notifyListeners();
   }
 
-  register(String userName, String password) async {
-    UserCredential userCredential = await FirebaseAuth.instance
-        .createUserWithEmailAndPassword(email: userName, password: password);
-    // User? user  = userCredential.user;
+  register(String email, String password) async {
+    UserCredential? userCredential = await FirebaseAuth.instance
+        .createUserWithEmailAndPassword(email: email, password: password);
   }
 
   login(String userName, String password) async {
     UserCredential userCredential = await FirebaseAuth.instance
         .signInWithEmailAndPassword(email: userName, password: password);
-    //User? user = userCredential.user;
   }
 
   ///write code to log out the user and add it to the home page.
   logout() {
-    //should clear session
     return FirebaseAuth.instance.signOut();
   }
 
   ///must be called in main before runApp
   ///
   loadSession() async {
-    //check secure storage method
     listen();
     User? user = FirebaseAuth.instance.currentUser;
     handleUserChanges(user);
@@ -67,15 +61,14 @@ class AuthController with ChangeNotifier {
   ///https://pub.dev/packages/flutter_secure_storage or any caching dependency of your choice like localstorage, hive, or a db
 }
 
-class SimulatedAPI {
-  Map<String, String> users = {"testUser": "12345678ABCabc!"};
+// class SimulatedAPI {
+//   Map<String, String> users = {"testUser": "12345678ABCabc!"};
 
-  Future<bool> login(String userName, String password) async {
-    await Future.delayed(const Duration(seconds: 4));
-    if (users[userName] == null) throw Exception("User does not exist");
-    if (users[userName] != password) {
-      throw Exception("Password does not match!");
-    }
-    return users[userName] == password;
-  }
-}
+//   Future<bool> login(String userName, String password) async {
+//     await Future.delayed(const Duration(seconds: 4));
+//     if (users[userName] == null) throw Exception("User does not exist");
+//     if (users[userName] != password)
+//       throw Exception("Password does not match!");
+//     return users[userName] == password;
+//   }
+// }
